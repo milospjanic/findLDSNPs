@@ -12,4 +12,6 @@ Then, the script will check if **PLINK** is present and if not it will download 
 
 Next, the first loop will process all the autosomal chromosomes using **TABIX** and **PLINK** and the following code will process separately X and Y chromosomes as their vcf files are labeled differently. TABIX will use 1000 Genomes phase 3 vcf data available via FTP: ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/. 
 
+Finally, the script will cut and filter the concatenated list of SNPs and LD SNPs and output it as $1.leadplusLD.cut
 
+The R2 or DPRIME value used for PLINK to output the LD SNPs is provided as $2 and $3 parameters when running the script, e.g. type 0.8 R2 or 0.8 dprime.
