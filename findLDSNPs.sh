@@ -33,7 +33,8 @@ sed -i 's/chr//g' $1.bed
 
 FILEPLINK="plink-1.07-x86_64.zip"
 FILEBED=$1.bed
-R2=$2
+LD_SCORE=$2
+LD_METRIC=$3
 
 if [ ! -f $FILEPLINK ]
 then
@@ -62,7 +63,7 @@ do
         while read line; do
                 set $line
                 tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz $1:`expr $2 - 10000`-`expr $2 + 10000` > genotypes_chr$1_$4.vcf
-                ./plink --vcf genotypes_chr$1_$4.vcf --ld-snp $4 --r2 dprime --ld-window-r2 $R2 --out ld_results_${filename}
+                ./plink --vcf genotypes_chr$1_$4.vcf --ld-snp $4 --r2 $LD_METRIC --ld-window-r2 $LD_SCORE --out ld_results_${filename}
         cat ld_results_${filename}.ld >> ${filename}.leadplusLD
 
         rm genotypes_chr$1_$4.vcf
@@ -81,7 +82,7 @@ do
         while read line; do
                 set $line
                 tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chrX.phase3_shapeit2_mvncall_integrated_v1b.20130502.genotypes.vcf.gz $1:`expr $2 - 10000`-`expr $2 + 10000` > genotypes_chr$1_$4.vcf
-                ./plink --vcf genotypes_chr$1_$4.vcf --ld-snp $4 --r2 dprime --ld-window-r2 $R2 --out ld_results_${filename}.X
+                ./plink --vcf genotypes_chr$1_$4.vcf --ld-snp $4 --r2 $LD_METRIC --ld-window-r2 $LD_SCORE --out ld_results_${filename}.X
         cat ld_results_${filename}.X.ld >> ${filename}.leadplusLD
 
         rm genotypes_chr$1_$4.vcf
@@ -96,7 +97,7 @@ do
         while read line; do
                 set $line                
 		tabix -fh ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chrY.phase3_integrated_v2a.20130502.genotypes.vcf.gz $1:`expr $2 - 10000`-`expr $2 + 10000` > genotypes_chr$1_$4.vcf
-                ./plink --vcf genotypes_chr$1_$4.vcf --ld-snp $4 --r2 dprime --ld-window-r2 $R2 --out ld_results_${filename}.Y
+                ./plink --vcf genotypes_chr$1_$4.vcf --ld-snp $4 --r2 $LD_METRIC --ld-window-r2 $LD_SCORE --out ld_results_${filename}.Y
         cat ld_results_${filename}.Y.ld >> ${filename}.leadplusLD
 
         rm genotypes_chr$1_$4.vcf
@@ -107,5 +108,3 @@ done
 
 tabsep $1.leadplusLD
 cut -f7 $1.leadplusLD | grep -v SNP > $1.leadplusLD.cut
-
-
