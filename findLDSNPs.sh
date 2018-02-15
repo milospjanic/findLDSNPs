@@ -1,9 +1,10 @@
+
 #!/bin/bash
 
 SECONDS=0
 
-FILE=~/1000Genomes_VCF_files_by_chr/snp150Common.bed
-DIR=~/1000Genomes_VCF_files_by_chr
+FILE=~/findLDSNPs_1000Genomes/snp150Common.bed
+DIR=~/findLDSNPs_1000Genomes
 SNPS=$(pwd)/$1
 echo Proccesing file:
 echo $SNPS 
@@ -12,10 +13,10 @@ echo $SNPS
 
 if [ ! -d $DIR ]
 then
-mkdir ~/1000Genomes_VCF_files_by_chr
+mkdir ~/findLDSNPs_1000Genomes
 fi
 
-cd ~/1000Genomes_VCF_files_by_chr
+cd ~/findLDSNPs_1000Genomes
 
 #check if dbsnp file exists, if not, download from snp150Common table using mysql
 
@@ -106,3 +107,5 @@ done
 
 tabsep $1.leadplusLD
 cut -f7 $1.leadplusLD | grep -v SNP > $1.leadplusLD.cut
+
+
