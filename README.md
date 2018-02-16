@@ -1,6 +1,6 @@
 # findLDSNPs
 
-**findLDSNPs** is a bash/mtSQL/awk script to obtain SNPs that are in linkage disequilibrium (LD) with the input list of SNPs using a user defined r2 value.
+**findLDSNPs** is a bash/mtSQL/awk script to obtain SNPs that are in linkage disequilibrium (LD) with the input list of SNPs using a user defined R2 or dprime values, and user defined window arround the SNP to look for linkage disequilibrium.
 
 First, script will check if ~/findLDSNPs_1000Genomes folder is present or not. If not it will create it. 
 
